@@ -75,26 +75,53 @@ struct Home: View {
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
                     
                     
-                    Button {
-                        
-                        if pomodoroModel.isStarted {
-                            pomodoroModel.stopTimer()
-                            // MARK: Cancelling All Notifications
-                            UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
-                        } else {
-                            pomodoroModel.addNewTimer = true
-                        }
-                        
-                    } label: {
-                        Image(systemName: !pomodoroModel.isStarted ? "timer" : "stop.fill")
-                            .font(.largeTitle.bold())
-                            .foregroundColor(.white)
-                            .frame(width: 80, height: 80)
-                            .background {
-                                Circle()
-                                    .fill(defaultColor.getPurple())
+                    HStack {
+                        Button {
+                            
+                            if pomodoroModel.isStarted {
+                                pomodoroModel.stopTimer()
+                                // MARK: Cancelling All Notifications
+                                UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+                            } else {
+                                pomodoroModel.addNewTimer = true
                             }
-                            .shadow(color: defaultColor.getPurple(), radius: 8, x: 0, y: 0)
+                            
+                        } label: {
+                            Image(systemName: !pomodoroModel.isStarted ? "timer" : "stop.fill")
+                                .font(.largeTitle.bold())
+                                .foregroundColor(.white)
+                                .frame(width: 80, height: 80)
+                                .background {
+                                    Circle()
+                                        .fill(defaultColor.getPurple())
+                                }
+                                .shadow(color: defaultColor.getPurple(), radius: 8, x: 0, y: 0)
+                        }
+                        .offset(x: pomodoroModel.isStarted || !pomodoroModel.desableOrEnable() ? -20 : 0)
+                        
+                        
+                        if !pomodoroModel.desableOrEnable() {
+                            Button {
+                                
+                                if pomodoroModel.isPaused {
+                                    pomodoroModel.finishedPause()
+                                } else {
+                                    pomodoroModel.pauseTimer()
+                                }
+                                
+                            } label: {
+                                Image(systemName: !pomodoroModel.isPaused ? "play" : "pause")
+                                    .font(.largeTitle.bold())
+                                    .foregroundColor(.white)
+                                    .frame(width: 80, height: 80)
+                                    .background {
+                                        Circle()
+                                            .fill(defaultColor.getPurple())
+                                    }
+                                    .shadow(color: defaultColor.getPurple(), radius: 8, x: 0, y: 0)
+                            }
+                            .offset(x: 20)
+                        }
                     }
                 }
                 .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, maxHeight: .infinity, alignment: .center)
@@ -117,7 +144,7 @@ struct Home: View {
                     }
                 
                 NewTimerView()
-                    .frame(maxHeight: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: .bottom)
+                    .frame(maxHeight: .infinity, alignment: .bottom)
                     .offset(y: pomodoroModel.addNewTimer ? 0 : 400)
             }
             .animation(.easeInOut, value: pomodoroModel.addNewTimer)

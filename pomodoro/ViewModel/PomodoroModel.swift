@@ -13,6 +13,7 @@ class PomodoroModel: NSObject, ObservableObject, UNUserNotificationCenterDelegat
     @Published var timeStringValue: String = "00:00"
     @Published var isStarted: Bool = false
     @Published var addNewTimer: Bool = false
+    @Published var isPaused: Bool = false
     
     @Published var hour: Int = 0
     @Published var minutes: Int = 0
@@ -106,6 +107,22 @@ class PomodoroModel: NSObject, ObservableObject, UNUserNotificationCenterDelegat
     // MARK: Desable or Enable Save Button
     func desableOrEnable() -> Bool {
         return hour == 0 && minutes == 0 && seconds == 0
+    }
+    
+    // MARK: Pause Pomodoro Timer
+    func pauseTimer() {
+        withAnimation {
+            isStarted = false
+            isPaused = true
+        }
+    }
+    
+    // MARK: Finished Pause timer
+    func finishedPause() {
+        withAnimation {
+            isStarted = true
+            isPaused = false
+        }
     }
 }
 
