@@ -96,7 +96,7 @@ class PomodoroModel: NSObject, ObservableObject, UNUserNotificationCenterDelegat
         let content = UNMutableNotificationContent()
         content.title = "Pomodoro Timer"
         content.subtitle = "Congratulations You did it hooray 🥳🥳🥳"
-        content.sound = UNNotificationSound.default
+        content.sound = UNNotificationSound.defaultRingtone
         
         let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(staticTotalSeconds), repeats: false))
         

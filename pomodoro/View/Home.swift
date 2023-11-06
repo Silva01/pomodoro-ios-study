@@ -10,6 +10,7 @@ import SwiftUI
 struct Home: View {
     
     @EnvironmentObject var pomodoroModel: PomodoroModel
+    var defaultColor: DefaultColor = .init()
     
     var body: some View {
         VStack {
@@ -48,7 +49,7 @@ struct Home: View {
                             let size = proxy.size
                             
                             Circle()
-                                .fill(Color("Purple"))
+                                .fill(defaultColor.getPurple())
                                 .frame(width: 30, height: 30)
                                 .overlay(content: {
                                     Circle()
@@ -91,9 +92,9 @@ struct Home: View {
                             .frame(width: 80, height: 80)
                             .background {
                                 Circle()
-                                    .fill(Color("Purple"))
+                                    .fill(defaultColor.getPurple())
                             }
-                            .shadow(color: Color("Purple"), radius: 8, x: 0, y: 0)
+                            .shadow(color: defaultColor.getPurple(), radius: 8, x: 0, y: 0)
                     }
                 }
                 .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, maxHeight: .infinity, alignment: .center)
@@ -209,7 +210,7 @@ struct Home: View {
                     .padding(.horizontal, 100)
                     .background {
                         Capsule()
-                            .fill(Color("Purple"))
+                            .fill(defaultColor.getPurple())
                     }
             }
             .disabled(pomodoroModel.desableOrEnable())
@@ -220,7 +221,7 @@ struct Home: View {
         .frame(maxWidth: .infinity)
         .background {
             RoundedRectangle(cornerRadius: 10, style: .continuous)
-                .fill(Color("BG"))
+                .fill(defaultColor.getBg())
                 .ignoresSafeArea()
         }
     }
