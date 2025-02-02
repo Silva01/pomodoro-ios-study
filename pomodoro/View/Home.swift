@@ -10,6 +10,7 @@ import SwiftUI
 struct Home: View {
     
     @EnvironmentObject var pomodoroModel: PomodoroModel
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @State private var navigateToTask = false
     
     var defaultColor: DefaultColor = .init()
@@ -22,6 +23,9 @@ struct Home: View {
                     .foregroundColor(.white)
                 
                 GeometryReader { proxy in
+                    
+                    let isLandscape = proxy.size.width > proxy.size.height
+                    
                     VStack (spacing: 15) {
                         // MARK: Timer ring
                         ZStack {
@@ -127,7 +131,8 @@ struct Home: View {
                             }
                         }
                     }
-                    .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, maxHeight: .infinity, alignment: .center)
+                    .frame(width: proxy.size.width, height: proxy.size.height, alignment: .center)
+                    .scaleEffect(isLandscape ? 0.36 : 1.0)
                 }
             }
             .padding()
@@ -246,7 +251,7 @@ struct Home: View {
                     }
             }
             .disabled(pomodoroModel.desableOrEnable())
-            .opacity(pomodoroModel.seconds == 0 ? 0.5 : 1)
+            .opacity(pomodoroModel.desableOrEnable() ? 0.5 : 1)
             .padding(.top)
             
             NavigationLink("Go to Task", destination: TaskView())
