@@ -10,107 +10,87 @@ import SwiftUI
 struct Home: View {
     
     @EnvironmentObject var pomodoroModel: PomodoroModel
+    @State private var navigateToTask = false
+    
     var defaultColor: DefaultColor = .init()
     
     var body: some View {
-        VStack {
-            Text("Pomodo Timer")
-                .font(.title2.bold())
-                .foregroundColor(.white)
-            
-            GeometryReader { proxy in
-                VStack (spacing: 15) {
-                    // MARK: Timer ring
-                    ZStack {
-                        
-                        Circle()
-                            .fill(.white.opacity(0.03))
-                            .padding(-40)
-                        
-                        Circle()
-                            .trim(from: 0, to: pomodoroModel.progress)
-                            .stroke(.white.opacity(0.03), lineWidth: 80)
-                        
-                        // MARK: Shadow
-                        Circle()
-                            .stroke(Color("Purple"), lineWidth: 5)
-                            .blur(radius: 15)
-                            .padding(-2)
-                        
-                        Circle()
-                            .fill(Color("BG"))
-                        
-                        Circle()
-                            .trim(from: 0, to: pomodoroModel.progress)
-                            .stroke(Color("Purple").opacity(0.7), lineWidth: 10)
-                        
-                        // MARK: Knob
-                        GeometryReader { proxy in
-                            let size = proxy.size
+        NavigationStack {
+            VStack {
+                Text("Pomodo Timer")
+                    .font(.title2.bold())
+                    .foregroundColor(.white)
+                
+                GeometryReader { proxy in
+                    VStack (spacing: 15) {
+                        // MARK: Timer ring
+                        ZStack {
                             
                             Circle()
-                                .fill(defaultColor.getPurple())
-                                .frame(width: 30, height: 30)
-                                .overlay(content: {
-                                    Circle()
-                                        .fill(.white)
-                                        .padding(5)
-                                })
-                                .frame(width: size.width, height: size.height, alignment: .center)
-                            // MARK: Since View is Rotated Thats Why Using X
-                                .offset(x: size.height / 2)
-                                .rotationEffect(.init(degrees: pomodoroModel.progress * 360))
+                                .fill(.white.opacity(0.03))
+                                .padding(-40)
                             
-                        }
-                        
-                        Text(pomodoroModel.timeStringValue)
-                            .font(.system(size: 45, weight: .light))
-                            .rotationEffect(.init(degrees: 90))
-                            .animation(.none, value: pomodoroModel.progress)
-                    }
-                    .padding(60)
-                    .frame(height: proxy.size.width)
-                    .rotationEffect(.init(degrees: -90))
-                    .animation(.easeInOut, value: pomodoroModel.progress)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
-                    
-                    
-                    HStack {
-                        Button {
+                            Circle()
+                                .trim(from: 0, to: pomodoroModel.progress)
+                                .stroke(.white.opacity(0.03), lineWidth: 80)
                             
-                            if pomodoroModel.isStarted {
-                                pomodoroModel.stopTimer()
-                                // MARK: Cancelling All Notifications
-                                UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
-                            } else {
-                                pomodoroModel.addNewTimer = true
+                            // MARK: Shadow
+                            Circle()
+                                .stroke(Color("Purple"), lineWidth: 5)
+                                .blur(radius: 15)
+                                .padding(-2)
+                            
+                            Circle()
+                                .fill(Color("BG"))
+                            
+                            Circle()
+                                .trim(from: 0, to: pomodoroModel.progress)
+                                .stroke(Color("Purple").opacity(0.7), lineWidth: 10)
+                            
+                            // MARK: Knob
+                            GeometryReader { proxy in
+                                let size = proxy.size
+                                
+                                Circle()
+                                    .fill(defaultColor.getPurple())
+                                    .frame(width: 30, height: 30)
+                                    .overlay(content: {
+                                        Circle()
+                                            .fill(.white)
+                                            .padding(5)
+                                    })
+                                    .frame(width: size.width, height: size.height, alignment: .center)
+                                // MARK: Since View is Rotated Thats Why Using X
+                                    .offset(x: size.height / 2)
+                                    .rotationEffect(.init(degrees: pomodoroModel.progress * 360))
+                                
                             }
                             
-                        } label: {
-                            Image(systemName: !pomodoroModel.isStarted ? "timer" : "stop.fill")
-                                .font(.largeTitle.bold())
-                                .foregroundColor(.white)
-                                .frame(width: 80, height: 80)
-                                .background {
-                                    Circle()
-                                        .fill(defaultColor.getPurple())
-                                }
-                                .shadow(color: defaultColor.getPurple(), radius: 8, x: 0, y: 0)
+                            Text(pomodoroModel.timeStringValue)
+                                .font(.system(size: 45, weight: .light))
+                                .rotationEffect(.init(degrees: 90))
+                                .animation(.none, value: pomodoroModel.progress)
                         }
-                        .offset(x: pomodoroModel.isStarted || !pomodoroModel.desableOrEnable() ? -20 : 0)
+                        .padding(60)
+                        .frame(height: proxy.size.width)
+                        .rotationEffect(.init(degrees: -90))
+                        .animation(.easeInOut, value: pomodoroModel.progress)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
                         
                         
-                        if !pomodoroModel.desableOrEnable() {
+                        HStack {
                             Button {
                                 
-                                if pomodoroModel.isPaused {
-                                    pomodoroModel.finishedPause()
+                                if pomodoroModel.isStarted {
+                                    pomodoroModel.stopTimer()
+                                    // MARK: Cancelling All Notifications
+                                    UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
                                 } else {
-                                    pomodoroModel.pauseTimer()
+                                    pomodoroModel.addNewTimer = true
                                 }
                                 
                             } label: {
-                                Image(systemName: !pomodoroModel.isPaused ? "play" : "pause")
+                                Image(systemName: !pomodoroModel.isStarted ? "timer" : "stop.fill")
                                     .font(.largeTitle.bold())
                                     .foregroundColor(.white)
                                     .frame(width: 80, height: 80)
@@ -120,50 +100,75 @@ struct Home: View {
                                     }
                                     .shadow(color: defaultColor.getPurple(), radius: 8, x: 0, y: 0)
                             }
-                            .offset(x: 20)
+                            .offset(x: pomodoroModel.isStarted || !pomodoroModel.desableOrEnable() ? -20 : 0)
+                            
+                            
+                            if !pomodoroModel.desableOrEnable() {
+                                Button {
+                                    
+                                    if pomodoroModel.isPaused {
+                                        pomodoroModel.finishedPause()
+                                    } else {
+                                        pomodoroModel.pauseTimer()
+                                    }
+                                    
+                                } label: {
+                                    Image(systemName: !pomodoroModel.isPaused ? "play" : "pause")
+                                        .font(.largeTitle.bold())
+                                        .foregroundColor(.white)
+                                        .frame(width: 80, height: 80)
+                                        .background {
+                                            Circle()
+                                                .fill(defaultColor.getPurple())
+                                        }
+                                        .shadow(color: defaultColor.getPurple(), radius: 8, x: 0, y: 0)
+                                }
+                                .offset(x: 20)
+                            }
                         }
                     }
+                    .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, maxHeight: .infinity, alignment: .center)
                 }
-                .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, maxHeight: .infinity, alignment: .center)
             }
-        }
-        .padding()
-        .background {
-            Color("BG")
-                .ignoresSafeArea()
-        }
-        .overlay(content: {
-            ZStack {
-                Color.black
-                    .opacity(pomodoroModel.addNewTimer ? 0.25 : 0)
-                    .onTapGesture {
-                        pomodoroModel.hour = 0
-                        pomodoroModel.minutes = 0
-                        pomodoroModel.seconds = 0
-                        pomodoroModel.addNewTimer = false
-                    }
+            .padding()
+            .background {
+                defaultColor.getBg()
+                    .ignoresSafeArea()
+            }
+            .overlay(content: {
+                ZStack {
+                    Color.black
+                        .opacity(pomodoroModel.addNewTimer ? 0.25 : 0)
+                        .onTapGesture {
+                            pomodoroModel.hour = 0
+                            pomodoroModel.minutes = 0
+                            pomodoroModel.seconds = 0
+                            pomodoroModel.addNewTimer = false
+                        }
+                    
+                    NewTimerView()
+                        .frame(maxHeight: .infinity, alignment: .bottom)
+                        .offset(y: pomodoroModel.addNewTimer ? 0 : 400)
+                }
+                .animation(.easeInOut, value: pomodoroModel.addNewTimer)
+            })
+            .preferredColorScheme(/*@START_MENU_TOKEN@*/.dark/*@END_MENU_TOKEN@*/)
+            .onReceive(Timer.publish(every: 1, on: .main, in: .common).autoconnect()) { _ in
+                if pomodoroModel.isStarted {
+                    pomodoroModel.updateTimer()
+                }
+            }
+            .alert("Congratulations You did it hooray 🥳🥳🥳", isPresented: $pomodoroModel.isFinished) {
+                Button("Start New", role: .cancel) {
+                    pomodoroModel.stopTimer()
+                    pomodoroModel.addNewTimer = true
+                }
                 
-                NewTimerView()
-                    .frame(maxHeight: .infinity, alignment: .bottom)
-                    .offset(y: pomodoroModel.addNewTimer ? 0 : 400)
+                Button("Close", role: .destructive) {
+                    pomodoroModel.stopTimer()
+                }
             }
-            .animation(.easeInOut, value: pomodoroModel.addNewTimer)
-        })
-        .preferredColorScheme(/*@START_MENU_TOKEN@*/.dark/*@END_MENU_TOKEN@*/)
-        .onReceive(Timer.publish(every: 1, on: .main, in: .common).autoconnect()) { _ in
-            if pomodoroModel.isStarted {
-                pomodoroModel.updateTimer()
-            }
-        }
-        .alert("Congratulations You did it hooray 🥳🥳🥳", isPresented: $pomodoroModel.isFinished) {
-            Button("Start New", role: .cancel) {
-                pomodoroModel.stopTimer()
-                pomodoroModel.addNewTimer = true
-            }
-            
-            Button("Close", role: .destructive) {
-                pomodoroModel.stopTimer()
-            }
+
         }
     }
     
@@ -243,6 +248,18 @@ struct Home: View {
             .disabled(pomodoroModel.desableOrEnable())
             .opacity(pomodoroModel.seconds == 0 ? 0.5 : 1)
             .padding(.top)
+            
+            NavigationLink("Go to Task", destination: TaskView())
+                .font(.title3)
+                .fontWeight(.semibold)
+                .foregroundColor(.white)
+                .padding(.vertical)
+                .padding(.horizontal, 100)
+                .background {
+                    Capsule()
+                        .fill(defaultColor.getPurple())
+                }
+            
         }
         .padding()
         .frame(maxWidth: .infinity)
