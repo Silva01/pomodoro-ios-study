@@ -13,7 +13,7 @@ struct Home: View {
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @State private var navigateToTask = false
     
-    var defaultColor: DefaultColor = .init()
+    var defaultColor: NewColorBasic = .init()
     
     var body: some View {
         NavigationStack {
@@ -40,16 +40,16 @@ struct Home: View {
                             
                             // MARK: Shadow
                             Circle()
-                                .stroke(Color("Purple"), lineWidth: 5)
+                                .stroke(defaultColor.getPurple(), lineWidth: 5)
                                 .blur(radius: 15)
                                 .padding(-2)
                             
                             Circle()
-                                .fill(Color("BG"))
+                                .fill(defaultColor.getBg())
                             
                             Circle()
                                 .trim(from: 0, to: pomodoroModel.progress)
-                                .stroke(Color("Purple").opacity(0.7), lineWidth: 10)
+                                .stroke(defaultColor.getPurple().opacity(0.7), lineWidth: 10)
                             
                             // MARK: Knob
                             GeometryReader { proxy in

@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		470ABB262D50033800B8A6C1 /* TaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470ABB252D50033800B8A6C1 /* TaskView.swift */; };
 		4794FA022AF823DD00E9F56A /* pomodoroApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4794FA012AF823DD00E9F56A /* pomodoroApp.swift */; };
 		4794FA042AF823DD00E9F56A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4794FA032AF823DD00E9F56A /* ContentView.swift */; };
 		4794FA062AF823DE00E9F56A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4794FA052AF823DE00E9F56A /* Assets.xcassets */; };
@@ -14,9 +15,12 @@
 		4794FA122AF8256F00E9F56A /* PomodoroModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4794FA112AF8256F00E9F56A /* PomodoroModel.swift */; };
 		4794FA142AF8261100E9F56A /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4794FA132AF8261100E9F56A /* Home.swift */; };
 		4794FA162AF8643100E9F56A /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 4794FA152AF8643100E9F56A /* README.md */; };
+		47AC64C12D5195EA00CA96D9 /* NewColorBasic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47AC64C02D5195EA00CA96D9 /* NewColorBasic.swift */; };
+		47E3E6E92AF99EED005DDB03 /* DefaultColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E3E6E82AF99EED005DDB03 /* DefaultColor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		470ABB252D50033800B8A6C1 /* TaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskView.swift; sourceTree = "<group>"; };
 		4794F9FE2AF823DD00E9F56A /* pomodoro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = pomodoro.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4794FA012AF823DD00E9F56A /* pomodoroApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = pomodoroApp.swift; sourceTree = "<group>"; };
 		4794FA032AF823DD00E9F56A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -25,7 +29,13 @@
 		4794FA112AF8256F00E9F56A /* PomodoroModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroModel.swift; sourceTree = "<group>"; };
 		4794FA132AF8261100E9F56A /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		4794FA152AF8643100E9F56A /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		47AC64C02D5195EA00CA96D9 /* NewColorBasic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewColorBasic.swift; sourceTree = "<group>"; };
+		47E3E6E82AF99EED005DDB03 /* DefaultColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultColor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		47AC64C22D519C1800CA96D9 /* ColorView */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = ColorView; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		4794F9FB2AF823DD00E9F56A /* Frameworks */ = {
@@ -58,6 +68,7 @@
 		4794FA002AF823DD00E9F56A /* pomodoro */ = {
 			isa = PBXGroup;
 			children = (
+				47AC64C22D519C1800CA96D9 /* ColorView */,
 				4794FA102AF8254300E9F56A /* ViewModel */,
 				4794FA0F2AF8253D00E9F56A /* View */,
 				4794FA012AF823DD00E9F56A /* pomodoroApp.swift */,
@@ -80,6 +91,7 @@
 			isa = PBXGroup;
 			children = (
 				4794FA132AF8261100E9F56A /* Home.swift */,
+				470ABB252D50033800B8A6C1 /* TaskView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -88,6 +100,8 @@
 			isa = PBXGroup;
 			children = (
 				4794FA112AF8256F00E9F56A /* PomodoroModel.swift */,
+				47E3E6E82AF99EED005DDB03 /* DefaultColor.swift */,
+				47AC64C02D5195EA00CA96D9 /* NewColorBasic.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -106,6 +120,9 @@
 			buildRules = (
 			);
 			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				47AC64C22D519C1800CA96D9 /* ColorView */,
 			);
 			name = pomodoro;
 			productName = pomodoro;
@@ -166,6 +183,9 @@
 				4794FA122AF8256F00E9F56A /* PomodoroModel.swift in Sources */,
 				4794FA042AF823DD00E9F56A /* ContentView.swift in Sources */,
 				4794FA142AF8261100E9F56A /* Home.swift in Sources */,
+				470ABB262D50033800B8A6C1 /* TaskView.swift in Sources */,
+				47AC64C12D5195EA00CA96D9 /* NewColorBasic.swift in Sources */,
+				47E3E6E92AF99EED005DDB03 /* DefaultColor.swift in Sources */,
 				4794FA022AF823DD00E9F56A /* pomodoroApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
