@@ -213,7 +213,7 @@ struct Home: View {
                             .fill(.white.opacity(0.07))
                     }
                     .contextMenu {
-                        ContextMenuOptions(maxValue: 60, hint: "min") { value in
+                        ContextMenuOptions(maxValue: 59, hint: "min") { value in
                             pomodoroModel.minutes = value
                         }
                     }
@@ -229,7 +229,7 @@ struct Home: View {
                             .fill(.white.opacity(0.07))
                     }
                     .contextMenu {
-                        ContextMenuOptions(maxValue: 60, hint: "sec") { value in
+                        ContextMenuOptions(maxValue: 59, hint: "sec") { value in
                             pomodoroModel.seconds = value
                         }
                     }
@@ -239,7 +239,7 @@ struct Home: View {
             Button {
                 pomodoroModel.startTimer()
             } label: {
-                Text("Save")
+                Text("Start!")
                     .font(.title3)
                     .fontWeight(.semibold)
                     .foregroundColor(.white)
@@ -254,16 +254,16 @@ struct Home: View {
             .opacity(pomodoroModel.desableOrEnable() ? 0.5 : 1)
             .padding(.top)
             
-            NavigationLink("Go to Task", destination: TaskView())
-                .font(.title3)
-                .fontWeight(.semibold)
-                .foregroundColor(.white)
-                .padding(.vertical)
-                .padding(.horizontal, 100)
-                .background {
-                    Capsule()
-                        .fill(defaultColor.getPurple())
-                }
+//            NavigationLink("Go to Task", destination: TaskView())
+//                .font(.title3)
+//                .fontWeight(.semibold)
+//                .foregroundColor(.white)
+//                .padding(.vertical)
+//                .padding(.horizontal, 100)
+//                .background {
+//                    Capsule()
+//                        .fill(defaultColor.getPurple())
+//                }
             
         }
         .padding()
