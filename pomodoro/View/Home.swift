@@ -18,7 +18,7 @@ struct Home: View {
     var body: some View {
         NavigationStack {
             VStack {
-                Text("Pomodo Timer")
+                Text("Pomotron Timer")
                     .font(.title2.bold())
                     .foregroundColor(.white)
                 
